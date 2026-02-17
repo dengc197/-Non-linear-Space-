@@ -12,83 +12,43 @@ body{
   margin:0;
   background:#000;
   font-family:'Share Tech Mono', monospace;
-  overflow:hidden;
-}
-
-.stage{
-  position:relative;
-  width:100%;
-  height:100vh;
-}
-
-.s{
-  position:absolute;
   color:#002FA7;
+}
+
+.container{
+  width:80%;
+  max-width:900px;
+  margin:60px auto;
   font-size:20px;
-  max-width:300px;
-  line-height:1.4;
-  white-space:normal;
+  line-height:1.6;
+  word-wrap:break-word;
 }
 </style>
 </head>
 <body>
 
-<div id="stage" class="stage"></div>
+<div id="text" class="container"></div>
 
 <script>
-var raw = "No one saw him disembark in the unanimous night. The stranger stretched himself out beneath the pedestal. He knew that his immediate obligation was to dream. Toward midnight he was awakened by the shriek of a bird. He wanted to dream a man and impose him on reality. At first, his dreams were chaotic. The intolerable lucidity of insomnia fell upon him. He dreamed that it was warm and secret. The dreamed one awoke. He destroyed in him all memory. The concentric fire licked the walls. He understood that he also was an illusion.";
+var raw = "No one saw him disembark in the unanimous night, no one saw the bamboo canoe sink into the sacred mud, but in a few days there was no one who did not know that the taciturn man came from the South and that his home had been one of those numberless villages upstream in the deeply cleft side of the mountain. The stranger stretched himself out beneath the pedestal. He knew that his immediate obligation was to dream. Toward midnight he was awakened by the inconsolable shriek of a bird. He wanted to dream a man and impose him on reality. At first, his dreams were chaotic; then they became ordered. The intolerable lucidity of insomnia fell upon him. He dreamed that it was warm and secret. The dreamed one awoke. He destroyed in him all memory of apprenticeship. The concentric fire licked the walls. With relief, with humiliation, with terror, he understood that he also was an illusion, that someone else was dreaming him.";
 
-var arr = raw.split(".");
-var stage = document.getElementById("stage");
-var w = window.innerWidth;
-var h = window.innerHeight;
+var el = document.getElementById("text");
+var i = 0;
+var speed = 3;
 
-var index = 0;
-var positions = [];
-
-for(var i=0;i<30;i++){
-  positions.push({
-    x: Math.random()*(w-300),
-    y: Math.random()*(h-80)
-  });
-}
-
-function typeSentence(txt, x, y, done){
-  var el = document.createElement("div");
-  el.className = "s";
-  el.style.left = x + "px";
-  el.style.top = y + "px";
-  stage.appendChild(el);
-
-  var i = 0;
-  var speed = 15;
-
-  var interval = setInterval(function(){
-    el.innerHTML += txt[i];
-    i++;
-    if(i >= txt.length){
-      clearInterval(interval);
-      done();
-    }
-  }, speed);
-}
-
-function next(){
-  if(index >= arr.length){
+function type(){
+  el.innerHTML += raw[i];
+  i++;
+  if(i < raw.length){
+    setTimeout(type, speed);
+  } else {
     setTimeout(function(){
       window.location.href = "page4.html";
-    }, 800);
-    return;
+    }, 1500);
   }
-
-  var pos = positions[index % positions.length];
-  typeSentence(arr[index], pos.x, pos.y, function(){
-    index++;
-    next();
-  });
 }
 
-next();
+type();
 </script>
 
 </body>
