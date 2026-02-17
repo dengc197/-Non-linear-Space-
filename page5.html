@@ -1,1 +1,51 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>NOISES - 5</title>
+<style>
+body{
+  margin:0;
+  background:#000;
+  font-family:Arial, Helvetica, sans-serif;
+  color:#fff;
+  overflow:hidden;
+}
+.s{
+  position:absolute;
+  font-size:14px;
+}
+</style>
+</head>
+<body>
 
+<script>
+var txt = [
+"He dreamed an entire man.",
+"Someone else was dreaming him.",
+"The fire licked the walls.",
+"He understood the illusion.",
+"He wanted to dream."
+];
+
+function add(){
+  var d = document.createElement("div");
+  d.className="s";
+  d.innerHTML = txt[Math.floor(Math.random()*txt.length)];
+  d.style.left = Math.random()*window.innerWidth + "px";
+  d.style.top = Math.random()*window.innerHeight + "px";
+  document.body.appendChild(d);
+  setTimeout(function(){
+    d.remove();
+  }, 1500);
+}
+
+setInterval(add, 300);
+
+document.body.onclick = function(){
+  window.location.href="index.html";
+};
+</script>
+
+</body>
+</html>
