@@ -5,50 +5,96 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NOISES - 3</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
   background:#000;
-  font-family:'Share Tech Mono', monospace;
+  font-family:'Press Start 2P', monospace;
   color:#002FA7;
 }
 
 .container{
-  width:80%;
-  max-width:900px;
+  width:85%;
+  max-width:1000px;
   margin:60px auto;
-  font-size:20px;
-  line-height:1.6;
-  word-wrap:break-word;
+  font-size:18px;
+  line-height:1.8;
+}
+
+.block{
+  margin-bottom:40px;
+  min-height:60px;
 }
 </style>
 </head>
 <body>
 
-<div id="text" class="container"></div>
+<div id="container" class="container"></div>
 
 <script>
-var raw = "No one saw him disembark in the unanimous night, no one saw the bamboo canoe sink into the sacred mud, but in a few days there was no one who did not know that the taciturn man came from the South and that his home had been one of those numberless villages upstream in the deeply cleft side of the mountain. The stranger stretched himself out beneath the pedestal. He knew that his immediate obligation was to dream. Toward midnight he was awakened by the inconsolable shriek of a bird. He wanted to dream a man and impose him on reality. At first, his dreams were chaotic; then they became ordered. The intolerable lucidity of insomnia fell upon him. He dreamed that it was warm and secret. The dreamed one awoke. He destroyed in him all memory of apprenticeship. The concentric fire licked the walls. With relief, with humiliation, with terror, he understood that he also was an illusion, that someone else was dreaming him.";
+var raw = `No one saw him disembark in the unanimous night, no one saw the bamboo canoe sink into the sacred mud, but in a few days there was no one who did not know that the taciturn man came from the South and that his home had been one of those numberless villages upstream in the deeply cleft side of the mountain, where the Zend language has not been contaminated by Greek and where leprosy is infrequent.
 
-var el = document.getElementById("text");
-var i = 0;
-var speed = 3;
+What is certain is that the grey man kissed the mud, climbed up the bank with pushing aside (probably, without feeling) the blades which were lacerating his flesh, and crawled, nauseated and bloodstained, up to the circular enclosure crowned with a stone tiger or horse, which sometimes was the color of flame and now was that of ashes.
 
-function type(){
-  el.innerHTML += raw[i];
-  i++;
-  if(i < raw.length){
-    setTimeout(type, speed);
-  } else {
-    setTimeout(function(){
-      window.location.href = "page4.html";
-    }, 1500);
-  }
+This circle was a temple which had been devoured by ancient fires, profaned by the miasmal jungle, and whose god no longer received the homage of men.
+
+The stranger stretched himself out beneath the pedestal. He was awakened by the sun high overhead.
+
+He knew that his immediate obligation was to dream.
+
+The purpose which guided him was not impossible, though supernatural.
+
+At first, his dreams were chaotic; then in a short while they became dialectic in nature.
+
+After nine or ten nights he understood with a certain bitterness that he could expect nothing from those pupils who accepted his doctrine passively.
+
+He understood that modeling the incoherent and vertiginous matter of which dreams are composed was the most difficult task that a man could undertake.
+
+He dreamed almost immediately, with his heart throbbing.
+
+He dreamed an entire man.
+
+The dreamed one awoke.
+
+With relief, with humiliation, with terror, he understood that he also was an illusion, that someone else was dreaming him.`;
+
+var blocks = raw.split("\n\n");
+var container = document.getElementById("container");
+
+var totalBlocks = blocks.length;
+var finished = 0;
+
+function typeBlock(text, element, delay){
+  setTimeout(function(){
+    var i = 0;
+    var speed = 4;
+    function type(){
+      element.innerHTML += text[i];
+      i++;
+      if(i < text.length){
+        setTimeout(type, speed);
+      } else {
+        finished++;
+        if(finished === totalBlocks){
+          setTimeout(function(){
+            window.location.href = "page4.html";
+          }, 1000);
+        }
+      }
+    }
+    type();
+  }, delay);
 }
 
-type();
+for(var i=0;i<blocks.length;i++){
+  var div = document.createElement("div");
+  div.className = "block";
+  container.appendChild(div);
+  var randomDelay = Math.random() * 3000;
+  typeBlock(blocks[i], div, randomDelay);
+}
 </script>
 
 </body>
