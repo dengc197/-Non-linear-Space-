@@ -10,28 +10,23 @@
 <style>
 body{
   margin:0;
+  padding:0;
   background:#000;
   font-family:'Press Start 2P', monospace;
   color:#002FA7;
+  font-size:13px;
+  line-height:1.8;
 }
 
-.container{
-  width:80%;
-  max-width:900px;
-  margin:60px auto;
-  font-size:14px;
-  line-height:1.9;
-}
-
-.block{
-  margin-bottom:28px;
-  min-height:40px;
+#text{
+  padding:20px;
+  word-wrap:break-word;
 }
 </style>
 </head>
 <body>
 
-<div id="container" class="container"></div>
+<div id="text"></div>
 
 <script>
 var raw = `No one saw him disembark in the unanimous night, no one saw the bamboo canoe sink into the sacred mud, but in a few days there was no one who did not know that the taciturn man came from the South and that his home had been one of those numberless villages upstream in the deeply cleft side of the mountain, where the Zend language has not been contaminated by Greek and where leprosy is infrequent.
@@ -40,17 +35,17 @@ What is certain is that the grey man kissed the mud, climbed up the bank with pu
 
 This circle was a temple which had been devoured by ancient fires, profaned by the miasmal jungle, and whose god no longer received the homage of men.
 
-The stranger stretched himself out beneath the pedestal. He was awakened by the sun high overhead. He was not astonished to find that his wounds had healed; he closed his pallid eyes and slept.
+The stranger stretched himself out beneath the pedestal. He was awakened by the sun high overhead. He was not astonished to find that his wounds had healed; he closed his pallid eyes and slept, not through weakness of flesh but through determination of will.
 
 He knew that this temple was the place required for his invincible intent; he knew that his immediate obligation was to dream.
 
 The purpose which guided him was not impossible, though supernatural.
 
-At first, his dreams were chaotic; then they became dialectic in nature.
+At first, his dreams were chaotic; then in a short while they became dialectic in nature.
 
-After nine or ten nights he understood with bitterness that he could expect nothing from passive pupils.
+After nine or ten nights he understood with a certain bitterness that he could expect nothing from those pupils who accepted his doctrine passively.
 
-He understood that modeling the incoherent matter of dreams was the most difficult task.
+He understood that modeling the incoherent and vertiginous matter of which dreams are composed was the most difficult task.
 
 He dreamed almost immediately, with his heart throbbing.
 
@@ -58,23 +53,24 @@ He dreamed an entire man.
 
 The dreamed one awoke.
 
-With relief, humiliation, and terror, he understood that he also was an illusion, that someone else was dreaming him.`;
+With relief, with humiliation, with terror, he understood that he also was an illusion, that someone else was dreaming him.`;
 
-var blocks = raw.split("\n\n");
-var container = document.getElementById("container");
+var sentences = raw.replace(/\n/g," ").split(/(?<=[\.!\?])\s+/);
+var container = document.getElementById("text");
 
 var finished = 0;
-var total = blocks.length;
+var total = sentences.length;
 
-function typeText(text, element, delay){
+function typeSentence(text, span, delay){
   setTimeout(function(){
     var i = 0;
     function typing(){
-      element.innerHTML += text[i];
+      span.innerHTML += text[i];
       i++;
       if(i < text.length){
         setTimeout(typing, 2);
       } else {
+        span.innerHTML += " ";
         finished++;
         if(finished === total){
           setTimeout(function(){
@@ -87,12 +83,11 @@ function typeText(text, element, delay){
   }, delay);
 }
 
-for(var i=0;i<blocks.length;i++){
-  var div = document.createElement("div");
-  div.className = "block";
-  container.appendChild(div);
-  var randomDelay = Math.random() * 4000;
-  typeText(blocks[i], div, randomDelay);
+for(var i=0;i<sentences.length;i++){
+  var span = document.createElement("span");
+  container.appendChild(span);
+  var randomDelay = Math.random() * 5000;
+  typeSentence(sentences[i], span, randomDelay);
 }
 </script>
 
