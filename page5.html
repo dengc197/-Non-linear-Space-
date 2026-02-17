@@ -7,13 +7,13 @@
 body{
   margin:0;
   background:#000;
-  font-family:Arial, Helvetica, sans-serif;
-  color:#fff;
   overflow:hidden;
+  font-family:Arial, Helvetica, sans-serif;
 }
 .s{
   position:absolute;
-  font-size:14px;
+  font-weight:bold;
+  pointer-events:none;
 }
 </style>
 </head>
@@ -21,28 +21,69 @@ body{
 
 <script>
 var txt = [
-"He dreamed an entire man.",
-"Someone else was dreaming him.",
+"No one saw him disembark.",
+"He wanted to dream a man.",
+"The dreamed one awoke.",
+"He understood he was an illusion.",
 "The fire licked the walls.",
-"He understood the illusion.",
-"He wanted to dream."
+"Someone else was dreaming him.",
+"He knew that his immediate obligation was to dream.",
+"He dreamed an entire man.",
+"He destroyed in him all memory.",
+"With relief and terror he understood.",
+"The concentric fire burned the temple.",
+"He was not a man but a projection."
 ];
 
 function add(){
   var d = document.createElement("div");
   d.className="s";
   d.innerHTML = txt[Math.floor(Math.random()*txt.length)];
-  d.style.left = Math.random()*window.innerWidth + "px";
-  d.style.top = Math.random()*window.innerHeight + "px";
+
+  d.x = Math.random()*window.innerWidth;
+  d.y = Math.random()*window.innerHeight;
+
+  d.vx = (Math.random()-0.5)*6;
+  d.vy = (Math.random()-0.5)*6;
+
+  d.size = 12 + Math.random()*50;
+
+  d.style.left = d.x+"px";
+  d.style.top = d.y+"px";
+  d.style.fontSize = d.size+"px";
+  d.style.color = "hsl("+(Math.random()*360)+",100%,70%)";
+
   document.body.appendChild(d);
+
+  function move(){
+    d.x += d.vx;
+    d.y += d.vy;
+
+    d.style.left = d.x+"px";
+    d.style.top = d.y+"px";
+
+    if(d.x<-200 || d.x>window.innerWidth+200 || d.y<-200 || d.y>window.innerHeight+200){
+      d.remove();
+      return;
+    }
+
+    requestAnimationFrame(move);
+  }
+
+  move();
+
   setTimeout(function(){
-    d.remove();
-  }, 1500);
+    if(d.parentNode) d.remove();
+  },4000);
 }
 
-setInterval(add, 300);
+setInterval(add,100);
 
-document.body.onclick = function(){
+setInterval(function(){
+  document.body.style.background="hsl("+(Math.random()*360)+",30%,5%)";
+},1200);
+
+document.body.onclick=function(){
   window.location.href="index.html";
 };
 </script>
