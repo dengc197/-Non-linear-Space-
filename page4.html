@@ -6,16 +6,17 @@
 <style>
 body{
   margin:0;
-  overflow:hidden;
+  background:#fff;
   font-family:Arial, Helvetica, sans-serif;
-  background:#000;
+  color:#000;
+  overflow:hidden;
 }
 
 .s{
   position:absolute;
-  font-weight:bold;
+  font-size:16px;
+  max-width:300px;
   cursor:pointer;
-  transition:0.1s;
 }
 </style>
 </head>
@@ -26,77 +27,27 @@ var txt = [
 "No one saw him disembark.",
 "He wanted to dream a man.",
 "The dreamed one awoke.",
-"He understood he was an illusion.",
-"The fire licked the walls.",
-"Someone else was dreaming him."
+"He understood he was an illusion."
 ];
 
-var list = [];
+var h = window.innerHeight;
+var w = window.innerWidth;
 
 for(var i=0;i<txt.length;i++){
   var d = document.createElement("div");
   d.className="s";
   d.innerHTML = txt[i];
-
-  d.x = Math.random()*window.innerWidth;
-  d.y = Math.random()*window.innerHeight;
-
-  d.vx = (Math.random()-0.5)*2;
-  d.vy = (Math.random()-0.5)*2;
-
-  d.style.left = d.x+"px";
-  d.style.top = d.y+"px";
-  d.style.fontSize = (20 + Math.random()*40)+"px";
-  d.style.color = "hsl("+(Math.random()*360)+",100%,60%)";
-
-  d.onclick=function(){
-    if(Math.random()>0.5){
+  d.style.left = (w/5)*(i+1) - 100 + "px";
+  d.style.top = (h/5)*(i+1) + "px";
+  d.onclick = function(){
+    if(Math.random() > 0.5){
       window.location.href="page5.html";
     }else{
       window.location.href="page2.html";
     }
   };
-
   document.body.appendChild(d);
-  list.push(d);
 }
-
-function move(){
-  for(var i=0;i<list.length;i++){
-    var d = list[i];
-    d.x += d.vx;
-    d.y += d.vy;
-
-    if(d.x<0 || d.x>window.innerWidth-100) d.vx*=-1;
-    if(d.y<0 || d.y>window.innerHeight-50) d.vy*=-1;
-
-    d.style.left = d.x+"px";
-    d.style.top = d.y+"px";
-  }
-  requestAnimationFrame(move);
-}
-
-move();
-
-setInterval(function(){
-  document.body.style.background="hsl("+(Math.random()*360)+",40%,5%)";
-  for(var i=0;i<list.length;i++){
-    list[i].style.fontSize=(20+Math.random()*60)+"px";
-  }
-},1500);
-
-document.onmousemove=function(e){
-  for(var i=0;i<list.length;i++){
-    var d=list[i];
-    var dx=d.x-e.clientX;
-    var dy=d.y-e.clientY;
-    var dist=Math.sqrt(dx*dx+dy*dy);
-    if(dist<100){
-      d.x+=dx*0.05;
-      d.y+=dy*0.05;
-    }
-  }
-};
 </script>
 
 </body>
