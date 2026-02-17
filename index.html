@@ -3,123 +3,64 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>noises / circular ruins</title>
+<title>noises</title>
+
 <style>
-body{margin:0;font-family:Arial;background:#0e0d0b;color:#e9e2d6}
-.top{position:sticky;top:0;background:rgba(14,13,11,.92);border-bottom:1px solid rgba(233,226,214,.15);padding:12px 14px;display:flex;gap:10px;align-items:center}
-.brand{font-size:12px;letter-spacing:2px;opacity:.9}
-.nbtn{margin-left:auto;border:1px solid rgba(233,226,214,.2);background:rgba(233,226,214,.05);color:#e9e2d6;padding:6px 10px;border-radius:999px;font-size:11px;cursor:pointer}
-.wrap{max-width:900px;margin:0 auto;padding:22px 16px 40px}
-.map{border:1px solid rgba(233,226,214,.18);border-radius:18px;padding:14px;margin:14px 0;background:rgba(233,226,214,.03)}
-.map a{display:inline-block;margin:6px 8px 0 0;padding:8px 10px;border-radius:999px;border:1px solid rgba(233,226,214,.18);text-decoration:none;font-size:12px;letter-spacing:1px;opacity:.9}
-.map a:hover{opacity:1;border-color:rgba(233,226,214,.45)}
-.h{font-size:20px;letter-spacing:2px;margin:10px 0 12px}
-.p{font-size:14px;line-height:1.9;opacity:.92}
-.p p{margin:0 0 14px}
-.hl{border-bottom:1px solid rgba(233,226,214,.45);text-decoration:none}
-.hl:hover{opacity:.85}
-.note{font-size:12px;opacity:.65;line-height:1.6;margin-top:8px}
-.noiseOn{animation:sh .2s infinite}
-@keyframes sh{0%{transform:translate(0,0)}25%{transform:translate(1px,-1px)}50%{transform:translate(-1px,1px)}75%{transform:translate(1px,1px)}100%{transform:translate(0,0)}}
-.noiseOn .p{text-shadow:-1px 0 rgba(255,0,0,.35),1px 0 rgba(0,120,255,.3)}
-body:after{content:"";position:fixed;inset:0;pointer-events:none;background-image:url("https://grainy-gradients.vercel.app/noise.svg");opacity:.05}
+body{
+  margin:0;
+  background:#000;
+  font-family:Arial, Helvetica, sans-serif;
+  overflow:hidden;
+}
+
+/* static 背景 */
+.static{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.08) 0px, rgba(0,0,0,0.08) 1px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(0,0,0,0.05) 1px);
+  animation: move 0.1s infinite;
+  opacity:0.8;
+}
+
+@keyframes move{
+  0%{transform:translate(0,0);}
+  50%{transform:translate(-4px,3px);}
+  100%{transform:translate(0,0);}
+}
+
+/* 中间盒子 */
+.box{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:#fff;
+  color:#000;
+  padding:25px 30px;
+  text-decoration:none;
+  border-radius:10px;
+  font-size:18px;
+  letter-spacing:1px;
+}
+
+.box:hover{
+  opacity:0.9;
+}
 </style>
 </head>
+
 <body>
 
-<div class="top">
-  <div class="brand">NOISES · THE CIRCULAR RUINS</div>
-  <button class="nbtn" onclick="tog()">NOISE</button>
-</div>
+<div class="static"></div>
 
-<div class="wrap">
-
-  <div class="map">
-    <div class="note">Non-linear map (pick any):</div>
-    <a href="#arrival">ARRIVAL</a>
-    <a href="#purpose">PURPOSE</a>
-    <a href="#students">STUDENTS</a>
-    <a href="#insomnia">INSOMNIA</a>
-    <a href="#heart">HEART</a>
-    <a href="#fire">FIRE</a>
-    <a href="#son">SON</a>
-    <a href="#ending">REVELATION</a>
-  </div>
-
-  <div id="t" class="h"></div>
-  <div id="c" class="p"></div>
-
-  <div class="note">
-    Tip: click the underlined words to jump. There is no “next page.” That’s the point.
-  </div>
-
-</div>
-
-<script>
-var x={
-arrival:{t:"ARRIVAL",p:[
-"No one saw him disembark in the unanimous night... he crawled... up to the circular enclosure.",
-"Toward midnight he was awakened by the shriek of a bird... he concealed himself among unfamiliar leaves."
-]},
-purpose:{t:"PURPOSE",p:[
-"He wanted to dream a man; he wanted to dream him in minute entirety and impose him on reality.",
-"The ruined temple suited him... his body was consecrated to sleeping and dreaming."
-]},
-students:{t:"STUDENTS",p:[
-"At first, his dreams were chaotic; then... clouds of taciturn students filled the tiers of seats.",
-"He was seeking a soul worthy of participating in the universe."
-]},
-insomnia:{t:"INSOMNIA",p:[
-"A catastrophe took place... he understood that he had not dreamed.",
-"All that night and day, the intolerable lucidity of insomnia fell upon him."
-]},
-heart:{t:"HEART",p:[
-"He dreamed that it was warm, secret... a garnet color... within a human body as yet without face or sex.",
-"Within a year he had come to the skeleton and the eyelids... Night after night, the man dreamt him asleep."
-]},
-fire:{t:"FIRE",p:[
-"He dreamt of the statue... the multiple god revealed his earthly name was Fire.",
-"Fire would animate the dreamed phantom... all creatures would believe him a man of flesh and blood."
-]},
-son:{t:"SON",p:[
-"The wizard instructed him... secretly pained at being separated from him.",
-"Before sending him off... he destroyed in him all memory of apprenticeship."
-]},
-ending:{t:"REVELATION",p:[
-"The wizard saw the concentric fire licking the walls.",
-"With relief, humiliation, terror, he understood he also was an illusion, that someone else was dreaming him."
-]}
-};
-
-function w(s){
-var m={
-dream:"purpose",dreaming:"ending",temple:"arrival",ruins:"arrival",
-students:"students",insomnia:"insomnia",heart:"heart",fire:"fire",
-son:"son",memory:"son",illusion:"ending",night:"arrival",noise:"insomnia"
-};
-for(var k in m){
-var r=new RegExp("\\b"+k+"\\b","gi");
-s=s.replace(r,function(z){return '<a class="hl" href="#'+m[k]+'">'+z+"</a>"});
-}
-return s;
-}
-
-function go(){
-var h=(location.hash||"#arrival").replace("#","");
-if(!x[h]) h="arrival";
-document.getElementById("t").textContent=x[h].t;
-var s="";
-for(var i=0;i<x[h].p.length;i++) s+="<p>"+w(x[h].p[i])+"</p>";
-document.getElementById("c").innerHTML=s;
-}
-
-function tog(){
-document.body.className = document.body.className.indexOf("noiseOn")>=0 ? "" : "noiseOn";
-}
-
-window.onhashchange=go;
-go();
-</script>
+<a href="page2.html" class="box">
+generate visual noises
+</a>
 
 </body>
 </html>
