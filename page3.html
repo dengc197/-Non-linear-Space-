@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NOISES - 3</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  background:#000;
+  font-family:'Share Tech Mono', monospace;
+  overflow:hidden;
+}
+
+.stage{
+  position:relative;
+  width:100%;
+  height:100vh;
+}
+
+.s{
+  position:absolute;
+  color:#002FA7;
+  font-size:20px;
+  max-width:300px;
+  line-height:1.4;
+  white-space:normal;
+}
+</style>
+</head>
+<body>
+
+<div id="stage" class="stage"></div>
+
+<script>
+var raw = "No one saw him disembark in the unanimous night. The stranger stretched himself out beneath the pedestal. He knew that his immediate obligation was to dream. Toward midnight he was awakened by the shriek of a bird. He wanted to dream a man and impose him on reality. At first, his dreams were chaotic. The intolerable lucidity of insomnia fell upon him. He dreamed that it was warm and secret. The dreamed one awoke. He destroyed in him all memory. The concentric fire licked the walls. He understood that he also was an illusion.";
+
+var arr = raw.split(".");
+var stage = document.getElementById("stage");
+var w = window.innerWidth;
+var h = window.innerHeight;
+
+var index = 0;
+var positions = [];
+
+for(var i=0;i<30;i++){
+  positions.push({
+    x: Math.random()*(w-300),
+    y: Math.random()*(h-80)
+  });
+}
+
+function typeSentence(txt, x, y, done){
+  var el = document.createElement("div");
+  el.className = "s";
+  el.style.left = x + "px";
+  el.style.top = y + "px";
+  stage.appendChild(el);
+
+  var i = 0;
+  var speed = 15;
+
+  var interval = setInterval(function(){
+    el.innerHTML += txt[i];
+    i++;
+    if(i >= txt.length){
+      clearInterval(interval);
+      done();
+    }
+  }, speed);
+}
+
+function next(){
+  if(index >= arr.length){
+    setTimeout(function(){
+      window.location.href = "page4.html";
+    }, 800);
+    return;
+  }
+
+  var pos = positions[index % positions.length];
+  typeSentence(arr[index], pos.x, pos.y, function(){
+    index++;
+    next();
+  });
+}
+
+next();
+</script>
+
+</body>
+</html>
