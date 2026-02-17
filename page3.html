@@ -16,16 +16,16 @@ body{
 }
 
 .container{
-  width:85%;
-  max-width:1000px;
+  width:80%;
+  max-width:900px;
   margin:60px auto;
-  font-size:18px;
-  line-height:1.8;
+  font-size:14px;
+  line-height:1.9;
 }
 
 .block{
-  margin-bottom:40px;
-  min-height:60px;
+  margin-bottom:28px;
+  min-height:40px;
 }
 </style>
 </head>
@@ -40,17 +40,17 @@ What is certain is that the grey man kissed the mud, climbed up the bank with pu
 
 This circle was a temple which had been devoured by ancient fires, profaned by the miasmal jungle, and whose god no longer received the homage of men.
 
-The stranger stretched himself out beneath the pedestal. He was awakened by the sun high overhead.
+The stranger stretched himself out beneath the pedestal. He was awakened by the sun high overhead. He was not astonished to find that his wounds had healed; he closed his pallid eyes and slept.
 
-He knew that his immediate obligation was to dream.
+He knew that this temple was the place required for his invincible intent; he knew that his immediate obligation was to dream.
 
 The purpose which guided him was not impossible, though supernatural.
 
-At first, his dreams were chaotic; then in a short while they became dialectic in nature.
+At first, his dreams were chaotic; then they became dialectic in nature.
 
-After nine or ten nights he understood with a certain bitterness that he could expect nothing from those pupils who accepted his doctrine passively.
+After nine or ten nights he understood with bitterness that he could expect nothing from passive pupils.
 
-He understood that modeling the incoherent and vertiginous matter of which dreams are composed was the most difficult task that a man could undertake.
+He understood that modeling the incoherent matter of dreams was the most difficult task.
 
 He dreamed almost immediately, with his heart throbbing.
 
@@ -58,33 +58,32 @@ He dreamed an entire man.
 
 The dreamed one awoke.
 
-With relief, with humiliation, with terror, he understood that he also was an illusion, that someone else was dreaming him.`;
+With relief, humiliation, and terror, he understood that he also was an illusion, that someone else was dreaming him.`;
 
 var blocks = raw.split("\n\n");
 var container = document.getElementById("container");
 
-var totalBlocks = blocks.length;
 var finished = 0;
+var total = blocks.length;
 
-function typeBlock(text, element, delay){
+function typeText(text, element, delay){
   setTimeout(function(){
     var i = 0;
-    var speed = 4;
-    function type(){
+    function typing(){
       element.innerHTML += text[i];
       i++;
       if(i < text.length){
-        setTimeout(type, speed);
+        setTimeout(typing, 2);
       } else {
         finished++;
-        if(finished === totalBlocks){
+        if(finished === total){
           setTimeout(function(){
             window.location.href = "page4.html";
           }, 1000);
         }
       }
     }
-    type();
+    typing();
   }, delay);
 }
 
@@ -92,8 +91,8 @@ for(var i=0;i<blocks.length;i++){
   var div = document.createElement("div");
   div.className = "block";
   container.appendChild(div);
-  var randomDelay = Math.random() * 3000;
-  typeBlock(blocks[i], div, randomDelay);
+  var randomDelay = Math.random() * 4000;
+  typeText(blocks[i], div, randomDelay);
 }
 </script>
 
