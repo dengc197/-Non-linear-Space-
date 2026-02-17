@@ -35,7 +35,7 @@ body{
 .stage{
   position:relative;
   width:100%;
-  height:18000px;
+  height:36000px;
 }
 
 .s{
@@ -44,7 +44,7 @@ body{
   font-size:10px;
   line-height:1.3;
   max-width:240px;
-  opacity:0.9;
+  opacity:0.85;
 }
 </style>
 </head>
@@ -65,20 +65,20 @@ function add(txt){
   var e = document.createElement("div");
   e.className = "s";
   e.innerHTML = txt;
-
-  var x = Math.random()*(w-200);
-  var y = Math.random()*(h-20);
-
-  e.style.left = x + "px";
-  e.style.top = y + "px";
-  e.style.opacity = 0.7 + Math.random()*0.3;
-
+  e.style.left = Math.random()*(w-200) + "px";
+  e.style.top = Math.random()*(h-20) + "px";
   st.appendChild(e);
 }
 
-for(var i=0;i<3500;i++){
+for(var i=0;i<7000;i++){
   add(arr[i % arr.length]);
 }
+
+window.addEventListener("scroll", function(){
+  if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 5){
+    window.location.href = "page3.html";
+  }
+});
 </script>
 
 </body>
