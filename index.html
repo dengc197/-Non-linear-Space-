@@ -1,43 +1,125 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Noises / Circular Ruins - Non-linear Reader</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>noises / circular ruins</title>
+<style>
+body{margin:0;font-family:Arial;background:#0e0d0b;color:#e9e2d6}
+.top{position:sticky;top:0;background:rgba(14,13,11,.92);border-bottom:1px solid rgba(233,226,214,.15);padding:12px 14px;display:flex;gap:10px;align-items:center}
+.brand{font-size:12px;letter-spacing:2px;opacity:.9}
+.nbtn{margin-left:auto;border:1px solid rgba(233,226,214,.2);background:rgba(233,226,214,.05);color:#e9e2d6;padding:6px 10px;border-radius:999px;font-size:11px;cursor:pointer}
+.wrap{max-width:900px;margin:0 auto;padding:22px 16px 40px}
+.map{border:1px solid rgba(233,226,214,.18);border-radius:18px;padding:14px;margin:14px 0;background:rgba(233,226,214,.03)}
+.map a{display:inline-block;margin:6px 8px 0 0;padding:8px 10px;border-radius:999px;border:1px solid rgba(233,226,214,.18);text-decoration:none;font-size:12px;letter-spacing:1px;opacity:.9}
+.map a:hover{opacity:1;border-color:rgba(233,226,214,.45)}
+.h{font-size:20px;letter-spacing:2px;margin:10px 0 12px}
+.p{font-size:14px;line-height:1.9;opacity:.92}
+.p p{margin:0 0 14px}
+.hl{border-bottom:1px solid rgba(233,226,214,.45);text-decoration:none}
+.hl:hover{opacity:.85}
+.note{font-size:12px;opacity:.65;line-height:1.6;margin-top:8px}
+.noiseOn{animation:sh .2s infinite}
+@keyframes sh{0%{transform:translate(0,0)}25%{transform:translate(1px,-1px)}50%{transform:translate(-1px,1px)}75%{transform:translate(1px,1px)}100%{transform:translate(0,0)}}
+.noiseOn .p{text-shadow:-1px 0 rgba(255,0,0,.35),1px 0 rgba(0,120,255,.3)}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;background-image:url("https://grainy-gradients.vercel.app/noise.svg");opacity:.05}
+</style>
 </head>
 <body>
 
-  <div class="topbar">
-    <div class="brand">NOISES · THE CIRCULAR RUINS</div>
-    <div id="trail" class="trail"></div>
-    <button onclick="toggleNoise()" class="noiseBtn">NOISE</button>
+<div class="top">
+  <div class="brand">NOISES · THE CIRCULAR RUINS</div>
+  <button class="nbtn" onclick="tog()">NOISE</button>
+</div>
+
+<div class="wrap">
+
+  <div class="map">
+    <div class="note">Non-linear map (pick any):</div>
+    <a href="#arrival">ARRIVAL</a>
+    <a href="#purpose">PURPOSE</a>
+    <a href="#students">STUDENTS</a>
+    <a href="#insomnia">INSOMNIA</a>
+    <a href="#heart">HEART</a>
+    <a href="#fire">FIRE</a>
+    <a href="#son">SON</a>
+    <a href="#ending">REVELATION</a>
   </div>
 
-  <div class="wrap">
-    <div class="centerText">
-      <div class="quote">“He knew that his immediate obligation was to dream.”</div>
-      <div class="hint">Non-linear reading. Click nodes. Follow interference. Loop back.</div>
-      <div class="hint2">NOISE mode makes the page unstable (like the dream breaking).</div>
-    </div>
+  <div id="t" class="h"></div>
+  <div id="c" class="p"></div>
 
-    <div class="circle">
-      <a class="dot d1" href="node.html#arrival">ARRIVAL</a>
-      <a class="dot d2" href="node.html#purpose">PURPOSE</a>
-      <a class="dot d3" href="node.html#students">STUDENTS</a>
-      <a class="dot d4" href="node.html#insomnia">INSOMNIA</a>
-      <a class="dot d5" href="node.html#heart">THE HEART</a>
-      <a class="dot d6" href="node.html#fire">FIRE</a>
-      <a class="dot d7" href="node.html#son">THE SON</a>
-      <a class="dot d8" href="node.html#ending">REVELATION</a>
-    </div>
-
-    <div class="bottom">
-      <div class="small">There is no “next page.” Only links, drift, and return.</div>
-      <div class="small">If you get lost: click “Temple” or clear trail on node pages.</div>
-    </div>
+  <div class="note">
+    Tip: click the underlined words to jump. There is no “next page.” That’s the point.
   </div>
 
-  <script src="main.js"></script>
+</div>
+
+<script>
+var x={
+arrival:{t:"ARRIVAL",p:[
+"No one saw him disembark in the unanimous night... he crawled... up to the circular enclosure.",
+"Toward midnight he was awakened by the shriek of a bird... he concealed himself among unfamiliar leaves."
+]},
+purpose:{t:"PURPOSE",p:[
+"He wanted to dream a man; he wanted to dream him in minute entirety and impose him on reality.",
+"The ruined temple suited him... his body was consecrated to sleeping and dreaming."
+]},
+students:{t:"STUDENTS",p:[
+"At first, his dreams were chaotic; then... clouds of taciturn students filled the tiers of seats.",
+"He was seeking a soul worthy of participating in the universe."
+]},
+insomnia:{t:"INSOMNIA",p:[
+"A catastrophe took place... he understood that he had not dreamed.",
+"All that night and day, the intolerable lucidity of insomnia fell upon him."
+]},
+heart:{t:"HEART",p:[
+"He dreamed that it was warm, secret... a garnet color... within a human body as yet without face or sex.",
+"Within a year he had come to the skeleton and the eyelids... Night after night, the man dreamt him asleep."
+]},
+fire:{t:"FIRE",p:[
+"He dreamt of the statue... the multiple god revealed his earthly name was Fire.",
+"Fire would animate the dreamed phantom... all creatures would believe him a man of flesh and blood."
+]},
+son:{t:"SON",p:[
+"The wizard instructed him... secretly pained at being separated from him.",
+"Before sending him off... he destroyed in him all memory of apprenticeship."
+]},
+ending:{t:"REVELATION",p:[
+"The wizard saw the concentric fire licking the walls.",
+"With relief, humiliation, terror, he understood he also was an illusion, that someone else was dreaming him."
+]}
+};
+
+function w(s){
+var m={
+dream:"purpose",dreaming:"ending",temple:"arrival",ruins:"arrival",
+students:"students",insomnia:"insomnia",heart:"heart",fire:"fire",
+son:"son",memory:"son",illusion:"ending",night:"arrival",noise:"insomnia"
+};
+for(var k in m){
+var r=new RegExp("\\b"+k+"\\b","gi");
+s=s.replace(r,function(z){return '<a class="hl" href="#'+m[k]+'">'+z+"</a>"});
+}
+return s;
+}
+
+function go(){
+var h=(location.hash||"#arrival").replace("#","");
+if(!x[h]) h="arrival";
+document.getElementById("t").textContent=x[h].t;
+var s="";
+for(var i=0;i<x[h].p.length;i++) s+="<p>"+w(x[h].p[i])+"</p>";
+document.getElementById("c").innerHTML=s;
+}
+
+function tog(){
+document.body.className = document.body.className.indexOf("noiseOn")>=0 ? "" : "noiseOn";
+}
+
+window.onhashchange=go;
+go();
+</script>
+
 </body>
 </html>
