@@ -6,17 +6,16 @@
 <style>
 body{
   margin:0;
-  background:#fff;
+  background:#000;
   font-family:Arial, Helvetica, sans-serif;
-  color:#000;
   overflow:hidden;
 }
 
 .s{
   position:absolute;
-  font-size:16px;
-  max-width:300px;
   cursor:pointer;
+  transition:0.2s;
+  font-weight:bold;
 }
 </style>
 </head>
@@ -27,27 +26,50 @@ var txt = [
 "No one saw him disembark.",
 "He wanted to dream a man.",
 "The dreamed one awoke.",
-"He understood he was an illusion."
+"He understood he was an illusion.",
+"The fire licked the walls.",
+"Someone else was dreaming him."
 ];
 
-var h = window.innerHeight;
-var w = window.innerWidth;
+var colors = ["#002FA7","#00FFFF","#FF00FF","#00FF99","#FF6600","#FFFFFF"];
 
 for(var i=0;i<txt.length;i++){
   var d = document.createElement("div");
   d.className="s";
   d.innerHTML = txt[i];
-  d.style.left = (w/5)*(i+1) - 100 + "px";
-  d.style.top = (h/5)*(i+1) + "px";
+
+  d.style.left = Math.random()*window.innerWidth + "px";
+  d.style.top = Math.random()*window.innerHeight + "px";
+  d.style.fontSize = (12 + Math.random()*30) + "px";
+  d.style.color = colors[Math.floor(Math.random()*colors.length)];
+
+  d.onmouseover = function(){
+    this.style.transform="scale(1.5)";
+  };
+
+  d.onmouseout = function(){
+    this.style.transform="scale(1)";
+  };
+
   d.onclick = function(){
-    if(Math.random() > 0.5){
+    if(Math.random()>0.5){
       window.location.href="page5.html";
     }else{
       window.location.href="page2.html";
     }
   };
+
   document.body.appendChild(d);
 }
+
+function pulse(){
+  var all = document.getElementsByClassName("s");
+  for(var i=0;i<all.length;i++){
+    all[i].style.fontSize = (12 + Math.random()*40) + "px";
+  }
+}
+
+setInterval(pulse, 800);
 </script>
 
 </body>
