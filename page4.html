@@ -6,16 +6,16 @@
 <style>
 body{
   margin:0;
-  background:#000;
-  font-family:Arial, Helvetica, sans-serif;
   overflow:hidden;
+  font-family:Arial, Helvetica, sans-serif;
+  background:#000;
 }
 
 .s{
   position:absolute;
-  cursor:pointer;
-  transition:0.2s;
   font-weight:bold;
+  cursor:pointer;
+  transition:0.1s;
 }
 </style>
 </head>
@@ -31,27 +31,25 @@ var txt = [
 "Someone else was dreaming him."
 ];
 
-var colors = ["#002FA7","#00FFFF","#FF00FF","#00FF99","#FF6600","#FFFFFF"];
+var list = [];
 
 for(var i=0;i<txt.length;i++){
   var d = document.createElement("div");
   d.className="s";
   d.innerHTML = txt[i];
 
-  d.style.left = Math.random()*window.innerWidth + "px";
-  d.style.top = Math.random()*window.innerHeight + "px";
-  d.style.fontSize = (12 + Math.random()*30) + "px";
-  d.style.color = colors[Math.floor(Math.random()*colors.length)];
+  d.x = Math.random()*window.innerWidth;
+  d.y = Math.random()*window.innerHeight;
 
-  d.onmouseover = function(){
-    this.style.transform="scale(1.5)";
-  };
+  d.vx = (Math.random()-0.5)*2;
+  d.vy = (Math.random()-0.5)*2;
 
-  d.onmouseout = function(){
-    this.style.transform="scale(1)";
-  };
+  d.style.left = d.x+"px";
+  d.style.top = d.y+"px";
+  d.style.fontSize = (20 + Math.random()*40)+"px";
+  d.style.color = "hsl("+(Math.random()*360)+",100%,60%)";
 
-  d.onclick = function(){
+  d.onclick=function(){
     if(Math.random()>0.5){
       window.location.href="page5.html";
     }else{
@@ -60,16 +58,45 @@ for(var i=0;i<txt.length;i++){
   };
 
   document.body.appendChild(d);
+  list.push(d);
 }
 
-function pulse(){
-  var all = document.getElementsByClassName("s");
-  for(var i=0;i<all.length;i++){
-    all[i].style.fontSize = (12 + Math.random()*40) + "px";
+function move(){
+  for(var i=0;i<list.length;i++){
+    var d = list[i];
+    d.x += d.vx;
+    d.y += d.vy;
+
+    if(d.x<0 || d.x>window.innerWidth-100) d.vx*=-1;
+    if(d.y<0 || d.y>window.innerHeight-50) d.vy*=-1;
+
+    d.style.left = d.x+"px";
+    d.style.top = d.y+"px";
   }
+  requestAnimationFrame(move);
 }
 
-setInterval(pulse, 800);
+move();
+
+setInterval(function(){
+  document.body.style.background="hsl("+(Math.random()*360)+",40%,5%)";
+  for(var i=0;i<list.length;i++){
+    list[i].style.fontSize=(20+Math.random()*60)+"px";
+  }
+},1500);
+
+document.onmousemove=function(e){
+  for(var i=0;i<list.length;i++){
+    var d=list[i];
+    var dx=d.x-e.clientX;
+    var dy=d.y-e.clientY;
+    var dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<100){
+      d.x+=dx*0.05;
+      d.y+=dy*0.05;
+    }
+  }
+};
 </script>
 
 </body>
