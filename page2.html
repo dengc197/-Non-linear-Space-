@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NOISES - 2</title>
+<style>
+body{
+  margin:0;
+  background:#fff;
+  font-family:Arial, Helvetica, sans-serif;
+  overflow-x:hidden;
+}
+
+.noisebg{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:url("https://grainy-gradients.vercel.app/noise.svg");
+  background-size:180px;
+  opacity:0.18;
+  mix-blend-mode:multiply;
+  pointer-events:none;
+  animation:mv .12s infinite;
+}
+
+@keyframes mv{
+  0%{transform:translate(0,0);}
+  25%{transform:translate(-6px,4px);}
+  50%{transform:translate(5px,-5px);}
+  75%{transform:translate(-4px,-3px);}
+  100%{transform:translate(0,0);}
+}
+
+.stage{
+  position:relative;
+  width:100%;
+  height:5200px;
+}
+
+.s{
+  position:absolute;
+  color:#000;
+  font-size:12px;
+  line-height:1.4;
+  max-width:340px;
+  opacity:0.95;
+  user-select:none;
+  white-space:normal;
+}
+</style>
+</head>
+<body>
+
+<div class="noisebg"></div>
+<div id="stage" class="stage"></div>
+
+<script>
+var raw = "No one saw him disembark in the unanimous night, no one saw the bamboo canoe sink into the sacred mud, but in a few days there was no one who did not know that the taciturn man came from the South and that his home had been one of those numberless villages upstream in the deeply cleft side of the mountain, where the Zend language has not been contaminated by Greek and where leprosy is infrequent. What is certain is that the grey man kissed the mud, climbed up the bank with pushing aside (probably, without feeling) the blades which were lacerating his flesh, and crawled, nauseated and bloodstained, up to the circular enclosure crowned with a stone tiger or horse, which sometimes was the color of flame and now was that of ashes. This circle was a temple which had been devoured by ancient fires, profaned by the miasmal jungle, and whose god no longer received the homage of men. The stranger stretched himself out beneath the pedestal. He was awakened by the sun high overhead. He was not astonished to find that his wounds had healed; he closed his pallid eyes and slept, not through weakness of flesh but through determination of will. He knew that this temple was the place required for his invincible intent; he knew that his immediate obligation was to dream. Toward midnight he was awakened by the inconsolable shriek of a bird. He felt a chill of fear, and sought out a sepulchral niche in the dilapidated wall where he concealed himself among unfamiliar leaves. The purpose which guided him was not impossible, though supernatural. He wanted to dream a man; he wanted to dream him in minute entirety and impose him on reality. At first, his dreams were chaotic; then in a short while they became dialectic in nature. One day, the man emerged from his sleep as if from a viscous desert, and understood that he had not dreamed. All that night and all day long, the intolerable lucidity of insomnia fell upon him. He swore he would forget the enormous hallucination. He dreamed almost immediately, with his heart throbbing. He dreamed that it was warm, secret, about the size of a clenched fist, and of a garnet color. The dreamed one awoke. Before doing this he destroyed in him all memory. In a dawn without birds, the wizard saw the concentric fire licking the walls. With relief, with humiliation, with terror, he understood that he also was an illusion, that someone else was dreaming him.";
+
+function splitSentences(t){
+  t = t.replace(/\s+/g," ").trim();
+  var a = t.split(/(?<=[\.\?\!;])\s+/);
+  var b = [];
+  for(var i=0;i<a.length;i++){
+    var s = a[i].trim();
+    if(s.length>0) b.push(s);
+  }
+  return b;
+}
+
+var arr = splitSentences(raw);
+var st = document.getElementById("stage");
+var w = window.innerWidth;
+
+function addOne(txt){
+  var e = document.createElement("div");
+  e.className = "s";
+  e.innerHTML = txt;
+  var x = Math.random() * (w + 300) - 150;
+  var y = Math.random() * (st.offsetHeight - 40);
+  var o = 0.55 + Math.random()*0.45;
+  var z = Math.floor(Math.random()*6);
+  e.style.left = x + "px";
+  e.style.top = y + "px";
+  e.style.opacity = o;
+  e.style.zIndex = z;
+  e.style.transform = "rotate(" + ((Math.random()*8)-4) + "deg)";
+  st.appendChild(e);
+}
+
+var want = 520;
+for(var i=0;i<want;i++){
+  var t = arr[i % arr.length];
+  addOne(t);
+}
+
+window.onresize = function(){ w = window.innerWidth; };
+</script>
+
+</body>
+</html>
